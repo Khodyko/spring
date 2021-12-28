@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+
+    <bean id="booking"
+          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="properties">
+            <value>
+                event.file.path=src/main/resources/event_data.json
+                ticket.file.path=src/main/resources/ticket_data.json
+                user.file.path=src/main/resources/user_data.json
+            </value>
+        </property>
+    </bean>
+
+
+    <bean id="storage" class="org.example.spring.Storage" ></bean>
+    <bean id="jsonReader" class="org.example.spring.JsonReader"/>
+    <bean id="eventServiceImpl" class="org.example.spring.service.serviceImpl.EventServiceImpl" autowire="byName"/>
+    <bean id="userServiceImpl" class="org.example.spring.service.serviceImpl.UserServiceImpl" autowire="byName"/>
+    <bean id="ticketServiceImpl" class="org.example.spring.service.serviceImpl.TicketServiceImpl" autowire="byName"/>
+    <bean id="eventDaoImpl" class="org.example.spring.dao.daoImpl.EventDaoImpl">
+        <property name="storage" ref="storage"/>
+    </bean>
+    <bean id="userDaoImpl" class="org.example.spring.dao.daoImpl.UserDaoImpl">
+        <property name="storage" ref="storage"/>
+    </bean>
+    <bean id="ticketDaoImpl" class="org.example.spring.dao.daoImpl.TicketDaoImpl">
+        <property name="storage" ref="storage"/>
+    </bean>
+
+    <bean id="facadeImpl" class="org.example.spring.facade.FacadeImpl">
+        <constructor-arg ref="eventServiceImpl"/>
+        <constructor-arg ref="userServiceImpl"/>
+        <constructor-arg ref="ticketServiceImpl"/>
+    </bean>
+
+
+</beans>
