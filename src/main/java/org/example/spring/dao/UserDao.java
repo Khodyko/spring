@@ -5,7 +5,7 @@ import org.example.spring.model.User;
 
 import java.util.List;
 
-public interface UserDao extends Pagenable {
+public interface UserDao{
     public User getUserById(long userId);
 
     public User getUserByEmail(String email);

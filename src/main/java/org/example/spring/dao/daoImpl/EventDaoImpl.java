@@ -12,9 +12,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 public class EventDaoImpl implements EventDao {
 
     private Storage storage;
+    private ValidatorDao validatorDao;
+
+    public ValidatorDao getValidatorDao() {
+        return validatorDao;
+    }
+
+    public void setValidatorDao(ValidatorDao validatorDao) {
+        this.validatorDao = validatorDao;
+    }
 
     public Storage getStorage() {
         return storage;
@@ -44,11 +54,12 @@ public class EventDaoImpl implements EventDao {
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
             if (entry.getValue().getTitle().equals(title)) {
                 eventList.add(entry.getValue());
-                break;
             }
         }
-
-        return getPagedList(eventList, pageSize, pageNum);
+        if (validatorDao.validateListForPage(eventList, pageSize, pageNum)) {
+            return getPagedList(eventList, pageSize, pageNum);
+        }
+        return null;
     }
 
     @Override
@@ -58,10 +69,12 @@ public class EventDaoImpl implements EventDao {
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
             if (entry.getValue().getDate().equals(day)) {
                 eventList.add(entry.getValue());
-                break;
             }
         }
-        return getPagedList(eventList, pageSize, pageNum);
+        if (validatorDao.validateListForPage(eventList, pageSize, pageNum)) {
+            return getPagedList(eventList, pageSize, pageNum);
+        }
+        return null;
     }
 
     @Override
@@ -88,26 +101,12 @@ public class EventDaoImpl implements EventDao {
 
         return eventEntityMap.remove("event:" + eventId, this.getEventById(eventId));
     }
-    @Override
-    public <T> List<T> getPagedList(List<T> list, int pageSize, int pageNum) throws DaoException {
-        List<T> pagedList;
-        Integer sizeFullList = list.size();
-        try {
-            if (pageSize < 0 || pageNum < 0) {
-                throw new IllegalArgumentException("page must be positive number");
-            } else if (pageSize <= sizeFullList || sizeFullList == 0 || list == null) {
-                return list;
-            } else if (sizeFullList % pageSize < pageNum) {
-                throw new IllegalArgumentException("We have only " + sizeFullList % pageSize +
-                        " pages and page № " + pageNum + " is not exist");
-            } else {
-                pagedList = new ArrayList<>();
-                pagedList = (List<T>) list.stream().skip(pageSize * pageNum).limit(pageNum).collect(Collectors.toList());
-                return pagedList;
-            }
-        } catch (IllegalArgumentException e) {
-            throw new DaoException(e.getMessage(), e);
-        }
 
+    private List<Event> getPagedList(List<Event> eventList, Integer pageSize, Integer pageNum) {
+        List<Event> pagedList = new ArrayList<>();
+        pagedList = (List<Event>) eventList.stream().
+                skip(pageSize * pageNum).limit(pageNum).
+                collect(Collectors.toList());
+        return pagedList;
     }
 }

@@ -16,6 +16,15 @@ import java.util.stream.Collectors;
 
 public class UserDaoImpl implements UserDao {
     private Storage storage;
+    private ValidatorDao validatorDao;
+
+    public ValidatorDao getValidatorDao() {
+        return validatorDao;
+    }
+
+    public void setValidatorDao(ValidatorDao validatorDao) {
+        this.validatorDao = validatorDao;
+    }
 
     public Storage getStorage() {
         return storage;
@@ -61,10 +70,12 @@ public class UserDaoImpl implements UserDao {
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
             if (entry.getValue().getName().equals(name)) {
                 userList.add(entry.getValue());
-                break;
             }
         }
-        return getPagedList(userList, pageSize, pageNum);
+        if (validatorDao.validateListForPage(userList, pageSize, pageNum)) {
+            return getPagedList(userList, pageSize, pageNum);
+        }
+        return null;
     }
 
     @Override
@@ -79,6 +90,8 @@ public class UserDaoImpl implements UserDao {
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         if (userEntityMap.containsKey("user:" + user.getId())) {
             userEntityMap.put("user:" + user.getId(), (UserEntity) user);
+            List<?> list = new ArrayList<>();
+            list.add(null);
             return user;
         }
         return null;
@@ -90,25 +103,12 @@ public class UserDaoImpl implements UserDao {
         return userEntityMap.remove("user:" + userId, this.getUserById(userId));
     }
 
-    @Override
-    public <T> List<T> getPagedList(List<T> list, int pageSize, int pageNum) throws DaoException {
-        List<T> pagedList;
-        Integer sizeFullList = list.size();
-        try {
-            if (pageSize < 0 || pageNum < 0) {
-                throw new IllegalArgumentException("page must be positive number");
-            } else if (pageSize <= sizeFullList || sizeFullList == 0 || list == null) {
-                return list;
-            } else if (sizeFullList % pageSize < pageNum) {
-                throw new IllegalArgumentException("We have only " + sizeFullList % pageSize +
-                        " pages and page № " + pageNum + " is not exist");
-            } else {
-                pagedList = new ArrayList<>();
-                pagedList = (List<T>) list.stream().skip(pageSize * pageNum).limit(pageNum).collect(Collectors.toList());
-                return pagedList;
-            }
-        } catch (IllegalArgumentException e) {
-            throw new DaoException(e.getMessage(), e);
-        }
+    private List<User> getPagedList(List<User> userList, Integer pageSize, Integer pageNum) {
+        List<User> pagedList = new ArrayList<>();
+        pagedList = (List<User>) userList.stream().
+                skip(pageSize * pageNum).limit(pageNum).
+                collect(Collectors.toList());
+        return pagedList;
     }
+
 }

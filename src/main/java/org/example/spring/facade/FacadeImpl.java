@@ -122,7 +122,12 @@ public class FacadeImpl implements BookingFacade {
 
     @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
-        return ticketServiceImpl.getBookedTickets(user, pageSize, pageNum);
+        try {
+            return ticketServiceImpl.getBookedTickets(user, pageSize, pageNum);
+        } catch (ServiceException e) {
+             //fix me
+        }
+        return null; //fix me
     }
 
     @Override

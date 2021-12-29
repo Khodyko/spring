@@ -21,6 +21,7 @@
 
 
     <bean id="storage" class="org.example.spring.Storage" ></bean>
+    <bean id="validatorDao" class="org.example.spring.dao.daoImpl.ValidatorDao" ></bean>
     <bean id="jsonReader" class="org.example.spring.JsonReader"/>
     <bean id="eventServiceImpl" class="org.example.spring.service.serviceImpl.EventServiceImpl" autowire="byName"/>
     <bean id="userServiceImpl" class="org.example.spring.service.serviceImpl.UserServiceImpl" autowire="byName"/>
