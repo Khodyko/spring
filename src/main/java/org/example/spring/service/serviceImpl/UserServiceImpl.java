@@ -1,7 +1,9 @@
 package org.example.spring.service.serviceImpl;
 
+import org.example.spring.dao.ExceptionDao.DaoException;
 import org.example.spring.dao.daoImpl.UserDaoImpl;
 import org.example.spring.model.User;
+import org.example.spring.service.ServiceException.ServiceException;
 import org.example.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private UserDaoImpl userDaoImpl;
 
-@Autowired
+    @Autowired
     public UserServiceImpl(UserDaoImpl userDaoImpl) {
         this.userDaoImpl = userDaoImpl;
     }
@@ -27,8 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersByName(String name, int pageSize, int pageNum) {
-        return userDaoImpl.getUsersByName(name, pageSize, pageNum);
+    public List<User> getUsersByName(String name, int pageSize, int pageNum) throws ServiceException {
+        try {
+            return userDaoImpl.getUsersByName(name, pageSize, pageNum);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     @Override

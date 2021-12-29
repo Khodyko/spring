@@ -42,4 +42,9 @@ public class TicketDaoImpl implements TicketDao {
     public boolean cancelTicket(long ticketId) {
         return false;
     }
+
+    @Override
+    public <T> List<T> getPagedList(List<T> list, int pageSize, int pageNum) {
+        return null;
+    }
 }

@@ -14,6 +14,7 @@ public class TicketServiceImpl implements TicketService {
     private TicketDaoImpl ticketDaoImpl;
     @Autowired
     public TicketServiceImpl(TicketDaoImpl ticketDaoImpl) {
+
         this.ticketDaoImpl = ticketDaoImpl;
     }
 

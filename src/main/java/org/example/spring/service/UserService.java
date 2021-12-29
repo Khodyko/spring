@@ -2,6 +2,7 @@ package org.example.spring.service;
 
 import org.example.spring.facade.BookingFacade;
 import org.example.spring.model.User;
+import org.example.spring.service.ServiceException.ServiceException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface UserService {
 
     public User getUserByEmail(String email);
 
-    public List<User> getUsersByName(String name, int pageSize, int pageNum);
+    public List<User> getUsersByName(String name, int pageSize, int pageNum) throws ServiceException;
 
     public User createUser(User user);
 

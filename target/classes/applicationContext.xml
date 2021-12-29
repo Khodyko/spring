@@ -28,8 +28,12 @@
     <bean id="eventDaoImpl" class="org.example.spring.dao.daoImpl.EventDaoImpl">
         <property name="storage" ref="storage"/>
     </bean>
-    <bean id="userDaoImpl" class="org.example.spring.dao.daoImpl.UserDaoImpl"/>
-    <bean id="ticketDaoImpl" class="org.example.spring.dao.daoImpl.TicketDaoImpl"/>
+    <bean id="userDaoImpl" class="org.example.spring.dao.daoImpl.UserDaoImpl">
+        <property name="storage" ref="storage"/>
+    </bean>
+    <bean id="ticketDaoImpl" class="org.example.spring.dao.daoImpl.TicketDaoImpl">
+        <property name="storage" ref="storage"/>
+    </bean>
 
     <bean id="facadeImpl" class="org.example.spring.facade.FacadeImpl">
         <constructor-arg ref="eventServiceImpl"/>

@@ -1,9 +1,12 @@
 package org.example.spring;
 
 import org.example.spring.facade.FacadeImpl;
+import org.example.spring.model.Entity.EventEntity;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 
 public class Runner {
@@ -15,7 +18,9 @@ public class Runner {
         ApplicationContext ctx= new ClassPathXmlApplicationContext("applicationContext.xml");
 
         FacadeImpl facade=(FacadeImpl) ctx.getBean("facadeImpl");
-        System.out.println(facade.getEventById(0));
+        EventEntity eventEntity=new EventEntity(5,"titleHello", new Date(System.currentTimeMillis()));
+        facade.createEvent(eventEntity);
+        System.out.println(facade.getEventById(5));
 //        Map<String, EventEntity> eventMap = runner.readFileJson(pathToEventJsonFile, EventEntity.class);
 //        Map<String, UserEntity> userMap = runner.readFileJson(pathToUserJsonFile, UserEntity.class);
 //        Map<String, TicketEntity> ticketMap = runner.readFileJson(pathToTicketJsonFile, TicketEntity.class);

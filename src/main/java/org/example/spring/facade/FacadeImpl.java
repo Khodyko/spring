@@ -3,6 +3,7 @@ package org.example.spring.facade;
 import org.example.spring.model.Event;
 import org.example.spring.model.Ticket;
 import org.example.spring.model.User;
+import org.example.spring.service.ServiceException.ServiceException;
 import org.example.spring.service.serviceImpl.EventServiceImpl;
 import org.example.spring.service.serviceImpl.TicketServiceImpl;
 import org.example.spring.service.serviceImpl.UserServiceImpl;
@@ -38,13 +39,23 @@ public class FacadeImpl implements BookingFacade {
     @Override
     public List<Event> getEventsByTitle(String title, int pageSize,
                                         int pageNum) {
-        return eventServiceImpl.getEventsByTitle(title, pageSize, pageNum);
+        try {
+            return eventServiceImpl.getEventsByTitle(title, pageSize, pageNum);
+        } catch (ServiceException e) {
+           //fix me
+        }
+        return null; //fix me
     }
 
     @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
 
-        return eventServiceImpl.getEventsForDay(day, pageSize, pageNum);
+        try {
+            return eventServiceImpl.getEventsForDay(day, pageSize, pageNum);
+        } catch (ServiceException e) {
+            //fix me
+        }
+        return null; //fix me
     }
 
     @Override
@@ -78,7 +89,12 @@ public class FacadeImpl implements BookingFacade {
     @Override
     public List<User> getUsersByName(String name, int pageSize,
                                      int pageNum) {
-        return userServiceImpl.getUsersByName(name, pageSize, pageNum);
+        try {
+            return userServiceImpl.getUsersByName(name, pageSize, pageNum);
+        } catch (ServiceException e) {
+            //fix me
+        }
+        return null; //fix me
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.example.spring.model.User;
 
 import java.util.List;
 
-public interface TicketDao {
+public interface TicketDao extends Pagenable {
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category);
 
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
