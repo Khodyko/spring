@@ -37,11 +37,6 @@ public class FacadeImplTest extends TestCase {
     @InjectMocks
     private FacadeImpl facade;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testGetEventById() {
 
@@ -118,8 +113,6 @@ public class FacadeImplTest extends TestCase {
 
     @Test
     public void testDeleteEvent() {
-        EventEntity eventEntity = new EventEntity(12, "title12",
-                new Date(System.currentTimeMillis()));
         when(eventServiceImpl.deleteEvent(12)).thenReturn(true);
         when(eventServiceImpl.deleteEvent(1)).thenReturn(false);
         assert(facade.deleteEvent(12));
