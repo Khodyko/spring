@@ -11,7 +11,7 @@ public interface EventDao {
     public Event getEventById(long eventId) ;
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) throws DaoException;
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) throws DaoException;
-    public Event createEvent(Event event) ;
+    public Event saveEvent(Event event) ;
     public Event updateEvent(Event event) ;
     public boolean deleteEvent(long eventId) ;
 

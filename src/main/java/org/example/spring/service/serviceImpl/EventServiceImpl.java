@@ -6,7 +6,6 @@ import org.example.spring.model.Event;
 import org.example.spring.service.EventService;
 import org.example.spring.service.ServiceException.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -48,7 +47,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event createEvent(Event event) {
 
-        return eventDaoImpl.createEvent(event);
+        return eventDaoImpl.saveEvent(event);
     }
 
     @Override

@@ -8,11 +8,12 @@ import org.example.spring.model.User;
 import java.util.List;
 
 public interface TicketDao{
-    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category);
+    public Ticket saveBookedTicket(long userId, long eventId, int place, Ticket.Category category);
 
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) throws DaoException;
 
-    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
+    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) throws DaoException;
 
     public boolean cancelTicket(long ticketId);
+    public Ticket getTicketById(long id);
 }

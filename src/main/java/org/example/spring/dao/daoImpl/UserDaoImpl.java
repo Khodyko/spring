@@ -79,8 +79,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User createUser(User user) {
+    public User saveUser(User user) {
+        long userId=0;
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
+        for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
+            if (entry.getValue().getId() >= userId) {
+                userId = entry.getValue().getId()+1;
+            }
+        }
+        user.setId(userId);
         userEntityMap.put("user:" + user.getId(), (UserEntity) user);
         return user;
     }

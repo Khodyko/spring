@@ -8,7 +8,6 @@ import org.example.spring.service.serviceImpl.EventServiceImpl;
 import org.example.spring.service.serviceImpl.TicketServiceImpl;
 import org.example.spring.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +31,7 @@ public class FacadeImpl implements BookingFacade {
 
     @Override
     public Event getEventById(long eventId) {
+
         return eventServiceImpl.getEventById(eventId);
     }
 
@@ -42,7 +42,7 @@ public class FacadeImpl implements BookingFacade {
         try {
             return eventServiceImpl.getEventsByTitle(title, pageSize, pageNum);
         } catch (ServiceException e) {
-           //fix me
+            //fix me
         }
         return null; //fix me
     }
@@ -92,7 +92,7 @@ public class FacadeImpl implements BookingFacade {
         try {
             return userServiceImpl.getUsersByName(name, pageSize, pageNum);
         } catch (ServiceException e) {
-            //fix me
+            e.printStackTrace();
         }
         return null; //fix me
     }
@@ -117,7 +117,12 @@ public class FacadeImpl implements BookingFacade {
     @Override
     public Ticket bookTicket(long userId, long eventId, int place,
                              Ticket.Category category) {
-        return ticketServiceImpl.bookTicket(userId, eventId, place, category);
+        try {
+            return ticketServiceImpl.bookTicket(userId, eventId, place, category);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        return null; //fix me
     }
 
     @Override
@@ -125,14 +130,23 @@ public class FacadeImpl implements BookingFacade {
         try {
             return ticketServiceImpl.getBookedTickets(user, pageSize, pageNum);
         } catch (ServiceException e) {
-             //fix me
+            e.printStackTrace();
         }
         return null; //fix me
     }
 
     @Override
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
-        return ticketServiceImpl.getBookedTickets(event, pageSize, pageNum);
+        try {
+            return ticketServiceImpl.getBookedTickets(event, pageSize, pageNum);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        return null; //fix me();
+    }
+
+    public Ticket getTicketById(long id){
+        return ticketServiceImpl.getTicketById(id);
     }
 
     @Override

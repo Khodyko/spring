@@ -12,7 +12,7 @@ public interface UserDao{
 
     public List<User> getUsersByName(String name, int pageSize, int pageNum) throws DaoException;
 
-    public User createUser(User user);
+    public User saveUser(User user);
 
     public User updateUser(User user);
 

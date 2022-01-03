@@ -6,7 +6,6 @@ import org.example.spring.model.User;
 import org.example.spring.service.ServiceException.ServiceException;
 import org.example.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        return userDaoImpl.createUser(user);
+        return userDaoImpl.saveUser(user);
     }
 
     @Override

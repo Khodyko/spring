@@ -4,6 +4,7 @@ import org.example.spring.Storage;
 import org.example.spring.dao.EventDao;
 import org.example.spring.dao.ExceptionDao.DaoException;
 import org.example.spring.model.Entity.EventEntity;
+import org.example.spring.model.Entity.TicketEntity;
 import org.example.spring.model.Event;
 
 import java.util.ArrayList;
@@ -78,10 +79,16 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public Event createEvent(Event event) {
+    public Event saveEvent(Event event) {
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
+        long eventId = 0;
+        for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
+            if (entry.getValue().getId() >= eventId) {
+                eventId = entry.getValue().getId()+1;
+            }
+        }
+        event.setId(eventId);
         eventEntityMap.put("event:" + event.getId(), (EventEntity) event);
-        System.out.println("creator: " + eventEntityMap);
         return event;
     }
 
@@ -98,7 +105,6 @@ public class EventDaoImpl implements EventDao {
     @Override
     public boolean deleteEvent(long eventId) {
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
-
         return eventEntityMap.remove("event:" + eventId, this.getEventById(eventId));
     }
 

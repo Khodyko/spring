@@ -37,42 +37,81 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
+    public Ticket saveBookedTicket(long userId, long eventId, int place, Ticket.Category category) {
+        Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
+        TicketEntity ticket;
+        long ticketId = 0;
 
-        return null;
+        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+            if (entry.getValue().getId() >= ticketId) {
+                ticketId = entry.getValue().getId()+1;
+            }
+        }
+        ticket = new TicketEntity(ticketId , eventId, userId, category, place);
+        ticketEntityMap.put("ticket:" + ticketId, ticket);
+
+        return ticket;
     }
 
     @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) throws DaoException {
-        List<Ticket> ticketList=new ArrayList<>();
-        Map<String, TicketEntity> ticketEntityMap=storage.getTicketMap();
-        for(Map.Entry<String, TicketEntity> entry: ticketEntityMap.entrySet()){
-            if(entry.getValue().getUserId()==user.getId()){
+        List<Ticket> ticketList = new ArrayList<>();
+        Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
+        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+            if (entry.getValue().getUserId() == user.getId()) {
                 ticketList.add(entry.getValue());
             }
-            if(validatorDao.validateListForPage(ticketList,pageSize,pageNum)){
-                return getPagedList(ticketList,pageSize,pageNum);
+            if (validatorDao.validateListForPage(ticketList, pageSize, pageNum)) {
+                return getPagedList(ticketList, pageSize, pageNum);
             }
         }
-
         return null;
     }
 
     @Override
-    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
+    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) throws DaoException {
+        List<Ticket> ticketList = new ArrayList<>();
+        Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
+        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+            if (entry.getValue().equals(event)) {
+                ticketList.add(entry.getValue());
+            }
+            if (validatorDao.validateListForPage(ticketList, pageSize, pageNum)) {
+                return getPagedList(ticketList, pageSize, pageNum);
+            }
+        }
         return null;
     }
 
     @Override
     public boolean cancelTicket(long ticketId) {
+        Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
+        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+            if (entry.getValue().getId() == ticketId) {
+                ticketEntityMap.remove(entry.getKey());
+                return true;
+            }
+        }
         return false;
+    }
+
+    @Override
+    public Ticket getTicketById(long id) {
+        Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
+        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+            if (entry.getValue().getId() == id) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     private List<Ticket> getPagedList(List<Ticket> ticketList, Integer pageSize, Integer pageNum) {
         List<Ticket> pagedList = new ArrayList<>();
-        pagedList = (List<Ticket>) ticketList.stream().
-                skip(pageSize * pageNum).limit(pageNum).
-                collect(Collectors.toList());
+        pagedList = (List<Ticket>) ticketList.stream()
+                .skip(pageSize * pageNum)
+                .limit(pageNum)
+                .collect(Collectors.toList());
         return pagedList;
     }
 
