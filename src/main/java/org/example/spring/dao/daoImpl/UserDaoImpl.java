@@ -80,11 +80,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User saveUser(User user) {
-        long userId=0;
+        long userId = 0;
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
             if (entry.getValue().getId() >= userId) {
-                userId = entry.getValue().getId()+1;
+                userId = entry.getValue().getId() + 1;
             }
         }
         user.setId(userId);
@@ -111,9 +111,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     private List<User> getPagedList(List<User> userList, Integer pageSize, Integer pageNum) {
-        List<User> pagedList = new ArrayList<>();
-        pagedList = (List<User>) userList.stream().
-                skip(pageSize * pageNum).limit(pageNum).
+        List<User> pagedList;
+        pagedList = userList.stream().
+                skip(pageSize * pageNum).limit(pageNum + 1).
                 collect(Collectors.toList());
         return pagedList;
     }
