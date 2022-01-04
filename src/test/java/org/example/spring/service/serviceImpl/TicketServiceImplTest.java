@@ -2,7 +2,6 @@ package org.example.spring.service.serviceImpl;
 
 import junit.framework.TestCase;
 import org.example.spring.dao.ExceptionDao.DaoException;
-import org.example.spring.dao.TicketDao;
 import org.example.spring.dao.daoImpl.TicketDaoImpl;
 import org.example.spring.model.Entity.EventEntity;
 import org.example.spring.model.Entity.TicketEntity;

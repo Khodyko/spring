@@ -84,7 +84,7 @@ public class EventDaoImpl implements EventDao {
         long eventId = 0;
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
             if (entry.getValue().getId() >= eventId) {
-                eventId = entry.getValue().getId()+1;
+                eventId = entry.getValue().getId() + 1;
             }
         }
         event.setId(eventId);
@@ -109,9 +109,9 @@ public class EventDaoImpl implements EventDao {
     }
 
     private List<Event> getPagedList(List<Event> eventList, Integer pageSize, Integer pageNum) {
-        List<Event> pagedList = new ArrayList<>();
-        pagedList = (List<Event>) eventList.stream().
-                skip(pageSize * pageNum).limit(pageNum).
+        List<Event> pagedList;
+        pagedList = eventList.stream().
+                skip(pageSize * pageNum).limit(pageNum + 1).
                 collect(Collectors.toList());
         return pagedList;
     }
