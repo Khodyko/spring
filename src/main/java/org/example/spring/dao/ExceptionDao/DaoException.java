@@ -1,6 +1,6 @@
 package org.example.spring.dao.ExceptionDao;
 
-public class DaoException extends Exception{
+public class DaoException extends Exception {
 
     public DaoException(String message, Throwable cause) {
         super(message, cause);

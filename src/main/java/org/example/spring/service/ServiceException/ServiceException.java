@@ -1,6 +1,6 @@
 package org.example.spring.service.ServiceException;
 
-public class ServiceException extends Exception{
+public class ServiceException extends Exception {
     public ServiceException() {
     }
 
