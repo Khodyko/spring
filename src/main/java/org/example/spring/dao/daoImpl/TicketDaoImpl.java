@@ -44,10 +44,10 @@ public class TicketDaoImpl implements TicketDao {
 
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
             if (entry.getValue().getId() >= ticketId) {
-                ticketId = entry.getValue().getId()+1;
+                ticketId = entry.getValue().getId() + 1;
             }
         }
-        ticket = new TicketEntity(ticketId , eventId, userId, category, place);
+        ticket = new TicketEntity(ticketId, eventId, userId, category, place);
         ticketEntityMap.put("ticket:" + ticketId, ticket);
 
         return ticket;
@@ -73,7 +73,7 @@ public class TicketDaoImpl implements TicketDao {
         List<Ticket> ticketList = new ArrayList<>();
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
-            if (entry.getValue().getEventId()==event.getId()) {
+            if (entry.getValue().getEventId() == event.getId()) {
                 ticketList.add(entry.getValue());
             }
             if (validatorDao.validateListForPage(ticketList, pageSize, pageNum)) {
@@ -110,7 +110,7 @@ public class TicketDaoImpl implements TicketDao {
         List<Ticket> pagedList = new ArrayList<>();
         pagedList = (List<Ticket>) ticketList.stream()
                 .skip(pageSize * pageNum)
-                .limit(pageNum+1)
+                .limit(pageNum + 1)
                 .collect(Collectors.toList());
         return pagedList;
     }
