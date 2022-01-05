@@ -1,5 +1,7 @@
 package org.example.spring.dao.daoImpl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.spring.Storage;
 import org.example.spring.dao.ExceptionDao.DaoException;
 import org.example.spring.dao.TicketDao;
@@ -13,9 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.apache.logging.log4j.Level.DEBUG;
+import static org.apache.logging.log4j.Level.INFO;
+
 public class TicketDaoImpl implements TicketDao {
     private Storage storage;
     private ValidatorDao validatorDao;
+    private final static Logger logger= LogManager.getLogger();
 
     public ValidatorDao getValidatorDao() {
         return validatorDao;
@@ -34,10 +40,12 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     public TicketDaoImpl() {
+        logger.log(DEBUG, this.getClass().getSimpleName()+" was created");
     }
 
     @Override
     public Ticket saveBookedTicket(long userId, long eventId, int place, Ticket.Category category) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         TicketEntity ticket;
         long ticketId = 0;
@@ -55,6 +63,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) throws DaoException {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         List<Ticket> ticketList = new ArrayList<>();
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
@@ -70,6 +79,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) throws DaoException {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         List<Ticket> ticketList = new ArrayList<>();
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
@@ -85,6 +95,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public boolean cancelTicket(long ticketId) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
             if (entry.getValue().getId() == ticketId) {
@@ -97,6 +108,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket getTicketById(long id) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
         for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
             if (entry.getValue().getId() == id) {
@@ -107,6 +119,7 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     private List<Ticket> getPagedList(List<Ticket> ticketList, Integer pageSize, Integer pageNum) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
         List<Ticket> pagedList = new ArrayList<>();
         pagedList = (List<Ticket>) ticketList.stream()
                 .skip(pageSize * pageNum)

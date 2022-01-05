@@ -1,6 +1,8 @@
 package org.example.spring;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.spring.model.Entity.EventEntity;
 import org.example.spring.model.Entity.TicketEntity;
 import org.example.spring.model.Entity.UserEntity;
@@ -12,8 +14,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.logging.log4j.Level.DEBUG;
+
 
 public class Storage implements BeanPostProcessor, Serializable {
+    private final static Logger logger = LogManager.getLogger();
     private static final long serialVersionUID = 1L;
     private Map<String, TicketEntity> ticketMap = new HashMap();
     private Map<String, UserEntity> userMap = new HashMap();
@@ -26,52 +31,49 @@ public class Storage implements BeanPostProcessor, Serializable {
     String userFilePath;
 
     public Storage() {
+        logger.log(DEBUG, this.getClass().getSimpleName() + " was created");
     }
 
     public Map<String, TicketEntity> getTicketMap() {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         return ticketMap;
     }
 
     public void setTicketMap(Map<String, TicketEntity> ticketMap) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         this.ticketMap = ticketMap;
     }
 
     public Map<String, UserEntity> getUserMap() {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         return userMap;
     }
 
     public void setUserMap(Map<String, UserEntity> userMap) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         this.userMap = userMap;
     }
 
     public Map<String, EventEntity> getEventMap() {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         return eventMap;
     }
 
     public void setEventMap(Map<String, EventEntity> eventMap) {
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
         this.eventMap = eventMap;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-
-       if(bean instanceof JsonReader){
-       eventMap=((JsonReader)bean).readFileJson(eventFilePath, EventEntity.class);
-       userMap=((JsonReader)bean).readFileJson(userFilePath, UserEntity.class);
-       ticketMap=((JsonReader)bean).readFileJson(ticketFilePath, TicketEntity.class);
-       }
+        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        if (bean instanceof JsonReader) {
+            eventMap = ((JsonReader) bean).readFileJson(eventFilePath, EventEntity.class);
+            userMap = ((JsonReader) bean).readFileJson(userFilePath, UserEntity.class);
+            ticketMap = ((JsonReader) bean).readFileJson(ticketFilePath, TicketEntity.class);
+        }
         return bean;
     }
-
-//    @Override
-//    public String toString() {
-//        final StringBuilder sb = new StringBuilder("Storage{");
-////        sb.append("ticketMap=").append(ticketMap);
-////        sb.append(", userMap=").append(userMap);
-//        sb.append(", eventMap=").append(eventMap.get(0));
-//        sb.append('}');
-//        return sb.toString();
-//    }
 
 
 }
