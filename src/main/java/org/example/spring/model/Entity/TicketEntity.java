@@ -1,7 +1,6 @@
 package org.example.spring.model.Entity;
 
 
-
 import org.example.spring.model.Ticket;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ public class TicketEntity implements Ticket, Serializable {
     }
 
     public TicketEntity(long id, long eventId, long userId,
-                       Category category, int place) {
+                        Category category, int place) {
         this.id = id;
         this.eventId = eventId;
         this.userId = userId;

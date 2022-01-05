@@ -7,18 +7,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.apache.logging.log4j.Level.DEBUG;
-import static org.apache.logging.log4j.Level.INFO;
 
 public class Runner {
-    private final static Logger logger= LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
+
     public Runner() {
-        logger.log(DEBUG, this.getClass().getSimpleName()+" was created");
+        logger.log(DEBUG, this.getClass().getSimpleName() + " was created");
     }
 
     public static void main(String[] args) {
 
-        ApplicationContext app= new ClassPathXmlApplicationContext("applicationContext.xml");
-        FacadeImpl facade= (FacadeImpl) app.getBean("facadeImpl");
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        FacadeImpl facade = (FacadeImpl) app.getBean("facadeImpl");
         facade.getEventById(1);
     }
 }

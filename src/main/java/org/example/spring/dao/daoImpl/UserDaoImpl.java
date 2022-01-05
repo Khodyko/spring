@@ -14,12 +14,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.apache.logging.log4j.Level.DEBUG;
-import static org.apache.logging.log4j.Level.INFO;
 
 public class UserDaoImpl implements UserDao {
     private Storage storage;
     private ValidatorDao validatorDao;
-    private final static Logger logger= LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
 
     public ValidatorDao getValidatorDao() {
         return validatorDao;
@@ -38,12 +37,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     public UserDaoImpl() {
-        logger.log(DEBUG, this.getClass().getSimpleName()+" was created");
+        logger.log(DEBUG, this.getClass().getSimpleName() + " was created");
     }
+
 
     @Override
     public User getUserById(long userId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         UserEntity user = null;
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
@@ -57,7 +58,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         UserEntity user = null;
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
@@ -71,7 +73,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getUsersByName(String name, int pageSize, int pageNum) throws DaoException {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         List<User> userList = new ArrayList<>();
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
@@ -87,7 +90,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User saveUser(User user) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         long userId = 0;
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         for (Map.Entry<String, UserEntity> entry : userEntityMap.entrySet()) {
@@ -102,7 +106,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User updateUser(User user) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         if (userEntityMap.containsKey("user:" + user.getId())) {
             userEntityMap.put("user:" + user.getId(), (UserEntity) user);
@@ -115,13 +120,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean deleteUser(long userId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         Map<String, UserEntity> userEntityMap = storage.getUserMap();
         return userEntityMap.remove("user:" + userId, this.getUserById(userId));
     }
 
     private List<User> getPagedList(List<User> userList, Integer pageSize, Integer pageNum) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         List<User> pagedList;
         pagedList = userList.stream().
                 skip(pageSize * pageNum).limit(pageNum + 1).

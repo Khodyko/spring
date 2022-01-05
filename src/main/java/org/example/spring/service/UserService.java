@@ -1,6 +1,5 @@
 package org.example.spring.service;
 
-import org.example.spring.facade.BookingFacade;
 import org.example.spring.model.User;
 import org.example.spring.service.ServiceException.ServiceException;
 import org.springframework.stereotype.Service;

@@ -11,7 +11,6 @@ import org.example.spring.service.UserService;
 import java.util.List;
 
 import static org.apache.logging.log4j.Level.DEBUG;
-import static org.apache.logging.log4j.Level.INFO;
 
 public class UserServiceImpl implements UserService {
     private UserDaoImpl userDaoImpl;
@@ -24,19 +23,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long userId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userDaoImpl.getUserById(userId);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userDaoImpl.getUserByEmail(email);
     }
 
     @Override
     public List<User> getUsersByName(String name, int pageSize, int pageNum) throws ServiceException {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         try {
             return userDaoImpl.getUsersByName(name, pageSize, pageNum);
         } catch (DaoException e) {
@@ -46,19 +48,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userDaoImpl.saveUser(user);
     }
 
     @Override
     public User updateUser(User user) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userDaoImpl.updateUser(user);
     }
 
     @Override
     public boolean deleteUser(long userId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userDaoImpl.deleteUser(userId);
     }
 }

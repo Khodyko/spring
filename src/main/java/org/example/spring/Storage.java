@@ -35,38 +35,45 @@ public class Storage implements BeanPostProcessor, Serializable {
     }
 
     public Map<String, TicketEntity> getTicketMap() {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return ticketMap;
     }
 
     public void setTicketMap(Map<String, TicketEntity> ticketMap) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         this.ticketMap = ticketMap;
     }
 
     public Map<String, UserEntity> getUserMap() {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return userMap;
     }
 
     public void setUserMap(Map<String, UserEntity> userMap) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         this.userMap = userMap;
     }
 
     public Map<String, EventEntity> getEventMap() {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         return eventMap;
     }
 
     public void setEventMap(Map<String, EventEntity> eventMap) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         this.eventMap = eventMap;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName() + " method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         if (bean instanceof JsonReader) {
             eventMap = ((JsonReader) bean).readFileJson(eventFilePath, EventEntity.class);
             userMap = ((JsonReader) bean).readFileJson(userFilePath, UserEntity.class);

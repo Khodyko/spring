@@ -15,18 +15,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.apache.logging.log4j.Level.DEBUG;
-import static org.apache.logging.log4j.Level.INFO;
 
 
 public class EventDaoImpl implements EventDao {
-
-
     private Storage storage;
     private ValidatorDao validatorDao;
-    private final static Logger logger= LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
+
     public EventDaoImpl() {
-        logger.log(DEBUG, this.getClass().getSimpleName()+" was created");
+        logger.log(DEBUG, this.getClass().getSimpleName() + " was created");
     }
+
+
     public ValidatorDao getValidatorDao() {
         return validatorDao;
     }
@@ -43,9 +43,11 @@ public class EventDaoImpl implements EventDao {
         this.storage = storage;
     }
 
+
     @Override
     public Event getEventById(long eventId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         EventEntity event = null;
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
@@ -59,7 +61,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) throws DaoException {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         List<Event> eventList = new ArrayList<>();
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
@@ -75,7 +78,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) throws DaoException {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         List<Event> eventList = new ArrayList<>();
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
@@ -91,7 +95,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event saveEvent(Event event) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         long eventId = 0;
         for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
@@ -106,7 +111,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event updateEvent(Event event) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         if (eventEntityMap.containsKey("event:" + event.getId())) {
             eventEntityMap.put("event:" + event.getId(), (EventEntity) event);
@@ -117,7 +123,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public boolean deleteEvent(long eventId) {
-        logger.log(DEBUG, Thread.currentThread().getStackTrace()[1].getMethodName()+" method start");
+        logger.log(DEBUG, Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + " method start");
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
         return eventEntityMap.remove("event:" + eventId, this.getEventById(eventId));
     }
