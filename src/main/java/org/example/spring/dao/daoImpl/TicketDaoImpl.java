@@ -44,7 +44,6 @@ public class TicketDaoImpl implements TicketDao {
     }
 
 
-
     @Override
     public Ticket saveBookedTicket(long userId, long eventId, int place, Ticket.Category category) {
         logger.log(DEBUG, Thread.currentThread()
@@ -128,12 +127,10 @@ public class TicketDaoImpl implements TicketDao {
     private List<Ticket> getPagedList(List<Ticket> ticketList, Integer pageSize, Integer pageNum) {
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
-        List<Ticket> pagedList;
-        pagedList = ticketList.stream()
+        return ticketList.stream()
                 .skip(pageSize * pageNum)
                 .limit(pageNum + 1)
                 .collect(Collectors.toList());
-        return pagedList;
     }
 
 }
