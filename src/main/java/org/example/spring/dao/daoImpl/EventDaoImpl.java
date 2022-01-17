@@ -48,15 +48,8 @@ public class EventDaoImpl implements EventDao {
     public Event getEventById(long eventId) {
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
-        EventEntity event = null;
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
-        for (Map.Entry<String, EventEntity> entry : eventEntityMap.entrySet()) {
-            if (entry.getValue().getId() == eventId) {
-                event = entry.getValue();
-                break;
-            }
-        }
-        return event;
+       return eventEntityMap.getOrDefault("event"+eventId, null);
     }
 
     @Override
