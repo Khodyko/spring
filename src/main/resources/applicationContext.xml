@@ -44,6 +44,6 @@
         <constructor-arg ref="userServiceImpl"/>
         <constructor-arg ref="ticketServiceImpl"/>
     </bean>
-
+    <bean class="com.concretepage.MyBeanPostProcessor"/>
 
 </beans>
