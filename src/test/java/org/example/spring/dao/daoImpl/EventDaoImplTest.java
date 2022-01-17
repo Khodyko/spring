@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -50,7 +49,7 @@ public class EventDaoImplTest extends TestCase {
         List<Event> eventList = new ArrayList<>();
         when(storage.getEventMap()).thenReturn(eventEntityMap);
         try {
-            when(validatorDao.validateListForPage(anyList(), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(anyInt(), any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();
@@ -74,7 +73,7 @@ public class EventDaoImplTest extends TestCase {
         List<Event> eventList = new ArrayList<>();
         when(storage.getEventMap()).thenReturn(eventEntityMap);
         try {
-            when(validatorDao.validateListForPage(anyList(), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();

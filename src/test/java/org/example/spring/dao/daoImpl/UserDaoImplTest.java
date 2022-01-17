@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,7 +58,7 @@ public class UserDaoImplTest extends TestCase {
         userEntityMap.put("user:" + userEntity.getId(), userEntity);
         when(storage.getUserMap()).thenReturn(userEntityMap);
         try {
-            when(validatorDao.validateListForPage(anyList(), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();

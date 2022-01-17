@@ -70,7 +70,7 @@ public class EventDaoImpl implements EventDao {
                 eventList.add(entry.getValue());
             }
         }
-        if (validatorDao.validateListForPage(eventList, pageSize, pageNum)) {
+        if (validatorDao.validateListForPage(eventList.size(), pageSize, pageNum)) {
             return getPagedList(eventList, pageSize, pageNum);
         }
         return null;
@@ -87,7 +87,7 @@ public class EventDaoImpl implements EventDao {
                 eventList.add(entry.getValue());
             }
         }
-        if (validatorDao.validateListForPage(eventList, pageSize, pageNum)) {
+        if (validatorDao.validateListForPage(eventList.size(), pageSize, pageNum)) {
             return getPagedList(eventList, pageSize, pageNum);
         }
         return null;

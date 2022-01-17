@@ -74,7 +74,7 @@ public class TicketDaoImpl implements TicketDao {
             if (entry.getValue().getUserId() == user.getId()) {
                 ticketList.add(entry.getValue());
             }
-            if (validatorDao.validateListForPage(ticketList, pageSize, pageNum)) {
+            if (validatorDao.validateListForPage(ticketList.size(), pageSize, pageNum)) {
                 return getPagedList(ticketList, pageSize, pageNum);
             }
         }
@@ -91,7 +91,7 @@ public class TicketDaoImpl implements TicketDao {
             if (entry.getValue().getEventId() == event.getId()) {
                 ticketList.add(entry.getValue());
             }
-            if (validatorDao.validateListForPage(ticketList, pageSize, pageNum)) {
+            if (validatorDao.validateListForPage(ticketList.size(), pageSize, pageNum)) {
                 return getPagedList(ticketList, pageSize, pageNum);
             }
         }

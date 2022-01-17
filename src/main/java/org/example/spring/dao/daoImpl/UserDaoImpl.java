@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
                 userList.add(entry.getValue());
             }
         }
-        if (validatorDao.validateListForPage(userList, pageSize, pageNum)) {
+        if (validatorDao.validateListForPage(userList.size(), pageSize, pageNum)) {
             return getPagedList(userList, pageSize, pageNum);
         }
         return null;
