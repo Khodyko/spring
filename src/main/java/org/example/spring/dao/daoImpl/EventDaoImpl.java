@@ -49,7 +49,7 @@ public class EventDaoImpl implements EventDao {
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
-       return eventEntityMap.getOrDefault("event"+eventId, null);
+       return eventEntityMap.getOrDefault("event:"+eventId, null);
     }
 
     @Override
@@ -119,6 +119,7 @@ public class EventDaoImpl implements EventDao {
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
         Map<String, EventEntity> eventEntityMap = storage.getEventMap();
+        System.out.println("we find: "+this.getEventById(eventId));
         return eventEntityMap.remove("event:" + eventId, this.getEventById(eventId));
     }
 

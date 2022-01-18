@@ -19,6 +19,6 @@ public class Runner {
 
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         FacadeImpl facade = (FacadeImpl) app.getBean("facadeImpl");
-        facade.getEventById(1);
+        System.out.println(facade.getEventById(1)+"123");
     }
 }

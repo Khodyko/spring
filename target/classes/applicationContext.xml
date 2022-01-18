@@ -20,7 +20,9 @@
     </bean>
 
 
-    <bean id="storage" class="org.example.spring.Storage" ></bean>
+    <bean id="storage" class="org.example.spring.Storage" init-method="initMethod">
+        <property name="jsonReader" ref="jsonReader"/>
+    </bean>
     <bean id="validatorDao" class="org.example.spring.dao.daoImpl.ValidatorDao" ></bean>
     <bean id="jsonReader" class="org.example.spring.JsonReader"/>
     <bean id="eventServiceImpl" class="org.example.spring.service.serviceImpl.EventServiceImpl" autowire="byName"/>
@@ -30,7 +32,7 @@
         <property name="storage" ref="storage"/>
         <property name="validatorDao" ref="validatorDao"/>
     </bean>
-    <bean id="userDaoImpl" class="org.example.spring.dao.daoImpl.UserDaoImpl">
+    <bean id="userDaoImpl" class="org.example.spring.dao.daoImpl.UserDaoImpl" >
         <property name="storage" ref="storage"/>
         <property name="validatorDao" ref="validatorDao"/>
     </bean>

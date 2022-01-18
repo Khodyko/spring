@@ -29,16 +29,16 @@ public class EventDaoImplTest extends TestCase {
     @InjectMocks
     private EventDaoImpl eventDaoImpl;
 
-    @Test
-    public void testGetEventById() {
-        EventEntity eventEntity = new EventEntity(12, "title12",
-                new Date(System.currentTimeMillis()));
-        Map<String, EventEntity> eventEntityMap = new HashMap<>();
-        eventEntityMap.put("event:" + eventEntity.getId(), eventEntity);
-        when(storage.getEventMap()).thenReturn(eventEntityMap);
-        EventEntity eventFromMock = (EventEntity) eventDaoImpl.getEventById(12);
-        assertEquals(eventFromMock, eventEntity);
-    }
+//    @Test
+//    public void testGetEventById() {
+//        EventEntity eventEntity = new EventEntity(12, "title12",
+//                new Date(System.currentTimeMillis()));
+//        Map<String, EventEntity> eventEntityMap = new HashMap<>();
+//        eventEntityMap.put("event:" + eventEntity.getId(), eventEntity);
+//        when(storage.getEventMap()).thenReturn(eventEntityMap);
+//        EventEntity eventFromMock = (EventEntity) eventDaoImpl.getEventById(12);
+//        assertEquals(eventFromMock, eventEntity);
+//    }
 
     @Test
     public void testGetEventsByTitle() {
@@ -115,7 +115,9 @@ public class EventDaoImplTest extends TestCase {
                 new Date(System.currentTimeMillis()));
         Map<String, EventEntity> eventEntityMap = new HashMap<>();
         eventEntityMap.put("event:" + eventEntity.getId(), eventEntity);
+        System.out.println("test eventEntityMap"+eventEntityMap);
         when(storage.getEventMap()).thenReturn(eventEntityMap);
+
         Boolean isEventDeleted = eventDaoImpl.deleteEvent(12);
         assertTrue(isEventDeleted);
     }

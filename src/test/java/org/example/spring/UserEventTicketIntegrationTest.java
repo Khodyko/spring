@@ -28,6 +28,7 @@ public class UserEventTicketIntegrationTest {
         EventEntity eventEntityAdded= (EventEntity) facade.createEvent(eventEntity);
         UserEntity userEntity=new UserEntity("Sergei", "Sergey@mail.ru");
         UserEntity userEntityAdded= (UserEntity) facade.createUser(userEntity);
+        System.out.println("1123"+userEntityAdded);
         TicketEntity ticketEntity= (TicketEntity) facade.bookTicket(userEntityAdded.getId(),eventEntityAdded.getId(), 12, Ticket.Category.BAR);
         facade.cancelTicket(ticketEntity.getId());
         assertNotNull(eventEntityAdded);

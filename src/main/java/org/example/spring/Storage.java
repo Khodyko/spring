@@ -17,9 +17,10 @@ import java.util.Map;
 import static org.apache.logging.log4j.Level.DEBUG;
 
 
-public class Storage implements BeanPostProcessor, Serializable {
+public class Storage implements  Serializable {
     private final static Logger logger = LogManager.getLogger();
     private static final long serialVersionUID = 1L;
+    private JsonReader jsonReader;
     private Map<String, TicketEntity> ticketMap = new HashMap();
     private Map<String, UserEntity> userMap = new HashMap();
     private Map<String, EventEntity> eventMap = new HashMap();
@@ -32,6 +33,14 @@ public class Storage implements BeanPostProcessor, Serializable {
 
     public Storage() {
         logger.log(DEBUG, this.getClass().getSimpleName() + " was created");
+    }
+
+    public JsonReader getJsonReader() {
+        return jsonReader;
+    }
+
+    public void setJsonReader(JsonReader jsonReader) {
+        this.jsonReader = jsonReader;
     }
 
     public Map<String, TicketEntity> getTicketMap() {
@@ -70,16 +79,13 @@ public class Storage implements BeanPostProcessor, Serializable {
         this.eventMap = eventMap;
     }
 
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+
+    public void initMethod(){
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
-        if (bean instanceof JsonReader) {
-            eventMap = ((JsonReader) bean).readFileJson(eventFilePath, EventEntity.class);
-            userMap = ((JsonReader) bean).readFileJson(userFilePath, UserEntity.class);
-            ticketMap = ((JsonReader) bean).readFileJson(ticketFilePath, TicketEntity.class);
-        }
-        return bean;
+            eventMap = jsonReader.readFileJson(eventFilePath, EventEntity.class);
+            userMap = jsonReader.readFileJson(userFilePath, UserEntity.class);
+            ticketMap = jsonReader.readFileJson(ticketFilePath, TicketEntity.class);
     }
 
 
