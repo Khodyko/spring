@@ -69,11 +69,12 @@ public class TicketDaoImpl implements TicketDao {
                 .getStackTrace()[1].getMethodName() + " method start");
         List<Ticket> ticketList = new ArrayList<>();
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
-        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
-            if (entry.getValue().getUserId() == user.getId()) {
-                ticketList.add(entry.getValue());
-            }
-            if (validatorDao.validateListForPage(ticketList.size(), pageSize, pageNum)) {
+        if (validatorDao.validateListForPage(pageSize, pageNum)) {
+            for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+                if (entry.getValue().getUserId() == user.getId()) {
+                    ticketList.add(entry.getValue());
+                }
+
                 return getPagedList(ticketList, pageSize, pageNum);
             }
         }
@@ -86,11 +87,12 @@ public class TicketDaoImpl implements TicketDao {
                 .getStackTrace()[1].getMethodName() + " method start");
         List<Ticket> ticketList = new ArrayList<>();
         Map<String, TicketEntity> ticketEntityMap = storage.getTicketMap();
-        for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
-            if (entry.getValue().getEventId() == event.getId()) {
-                ticketList.add(entry.getValue());
-            }
-            if (validatorDao.validateListForPage(ticketList.size(), pageSize, pageNum)) {
+        if (validatorDao.validateListForPage(pageSize, pageNum)) {
+            for (Map.Entry<String, TicketEntity> entry : ticketEntityMap.entrySet()) {
+                if (entry.getValue().getEventId() == event.getId()) {
+                    ticketList.add(entry.getValue());
+                }
+
                 return getPagedList(ticketList, pageSize, pageNum);
             }
         }

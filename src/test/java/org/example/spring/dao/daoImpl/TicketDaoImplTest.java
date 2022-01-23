@@ -50,7 +50,7 @@ public class TicketDaoImplTest extends TestCase {
         ticketEntityMap.put("ticket:" + ticketEntity.getId(), ticketEntity);
         when(storage.getTicketMap()).thenReturn(ticketEntityMap);
         try {
-            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class TicketDaoImplTest extends TestCase {
         ticketEntityMap.put("ticket:" + ticketEntity.getId(), ticketEntity);
         when(storage.getTicketMap()).thenReturn(ticketEntityMap);
         try {
-            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();

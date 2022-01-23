@@ -58,7 +58,7 @@ public class UserDaoImplTest extends TestCase {
         userEntityMap.put("user:" + userEntity.getId(), userEntity);
         when(storage.getUserMap()).thenReturn(userEntityMap);
         try {
-            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class UserDaoImplTest extends TestCase {
         Map<String, UserEntity> userEntityMap = new HashMap<>();
         userEntityMap.put("user:" + userEntity.getId(), userEntity);
         when(storage.getUserMap()).thenReturn(userEntityMap);
-        Boolean isUserEntityDeleted =  userDaoImpl.deleteUser(12);
+        Boolean isUserEntityDeleted = userDaoImpl.deleteUser(12);
         assertTrue(isUserEntityDeleted);
     }
 }

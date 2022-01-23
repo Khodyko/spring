@@ -49,7 +49,7 @@ public class EventDaoImplTest extends TestCase {
         List<Event> eventList = new ArrayList<>();
         when(storage.getEventMap()).thenReturn(eventEntityMap);
         try {
-            when(validatorDao.validateListForPage(anyInt(), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage( any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class EventDaoImplTest extends TestCase {
         List<Event> eventList = new ArrayList<>();
         when(storage.getEventMap()).thenReturn(eventEntityMap);
         try {
-            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(true);
+            when(validatorDao.validateListForPage(any(Integer.class), any(Integer.class))).thenReturn(true);
         } catch (DaoException e) {
             //fix me
             e.printStackTrace();
