@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.spring.dao.ExceptionDao.DaoException;
 
-import java.util.List;
-
 import static org.apache.logging.log4j.Level.DEBUG;
 
 public class ValidatorDao {
