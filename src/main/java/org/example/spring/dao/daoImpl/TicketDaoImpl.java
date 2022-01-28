@@ -129,10 +129,10 @@ public class TicketDaoImpl implements TicketDao {
     private List<Ticket> getPagedList(List<Ticket> ticketList, Integer pageSize, Integer pageNum) {
         logger.log(DEBUG, Thread.currentThread()
                 .getStackTrace()[1].getMethodName() + " method start");
-        return ticketList.stream()
-                .skip(pageSize * pageNum)
-                .limit(pageNum + 1)
-                .collect(Collectors.toList());
+        return ticketList.stream().
+                skip(pageSize * pageNum).
+                limit(pageSize * pageNum + pageSize).
+                collect(Collectors.toList());
     }
 
 }

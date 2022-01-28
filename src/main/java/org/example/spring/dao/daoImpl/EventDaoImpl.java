@@ -125,7 +125,8 @@ public class EventDaoImpl implements EventDao {
 
     private List<Event> getPagedList(List<Event> eventList, Integer pageSize, Integer pageNum) {
         return eventList.stream().
-                skip(pageSize * pageNum).limit(pageNum + 1).
+                skip(pageSize * pageNum).
+                limit(pageSize * pageNum + pageSize).
                 collect(Collectors.toList());
     }
 }

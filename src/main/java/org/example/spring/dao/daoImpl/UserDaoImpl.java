@@ -131,7 +131,8 @@ public class UserDaoImpl implements UserDao {
                 .getStackTrace()[1].getMethodName() + " method start");
         List<User> pagedList;
         return userList.stream().
-                skip(pageSize * pageNum).limit(pageNum + 1).
+                skip(pageSize * pageNum).
+                limit(pageSize * pageNum + pageSize).
                 collect(Collectors.toList());
     }
 
